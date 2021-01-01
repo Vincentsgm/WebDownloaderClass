@@ -24,7 +24,7 @@ namespace YourPlugin.Web
                 }
                 else
                 {
-                    Game.LogTrivial($"An error happened when downloading the contents from the following URL: {url}. Exception details: {ex});
+                    Game.LogTrivial($"An error happened when downloading the contents from the following URL: {url}. Exception details: {ex}");
                 }
                 success = false;
                 return string.Empty;
