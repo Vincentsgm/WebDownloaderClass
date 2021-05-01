@@ -8,26 +8,28 @@ namespace YourPlugin.Web
     {        
         public static string DownloadString(string url, out bool success)
         {
-            WebClient client = new WebClient();
-            string result;
-            try
+            using (WebClient client = new WebClient())
             {
-                result = client.DownloadString(url);
-                success = true;
-                return result;
-            }
-            catch (Exception ex)
-            {
-                if (ex is WebException)
+                string result;
+                try
                 {
-                    Game.LogTrivial($"An error happened when downloading the contents from the following URL: {url}. Make sure you have an active internet connection & a browser set as default.");
+                    result = client.DownloadString(url);
+                    success = true;
+                    return result;
                 }
-                else
+                catch (Exception ex)
                 {
-                    Game.LogTrivial($"An error happened when downloading the contents from the following URL: {url}. Exception details: {ex}");
+                    if (ex is WebException)
+                    {
+                        Game.LogTrivial($"An error happened when downloading the contents from the following URL: {url}. Make sure you have an active internet connection & a browser set as default.");
+                    }
+                    else
+                    {
+                        Game.LogTrivial($"An error happened when downloading the contents from the following URL: {url}. Exception details: {ex}");
+                    }
+                    success = false;
+                    return string.Empty;
                 }
-                success = false;
-                return string.Empty;
             }
         }
     }
