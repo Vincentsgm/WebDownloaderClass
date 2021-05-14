@@ -6,10 +6,17 @@ namespace YourPlugin.Web
 {
     internal static class WebDownloader
     {        
-        public static string DownloadString(string url, out bool success)
+        public static string DownloadString(string url, out bool success, bool useTLS = false)
         {
             using (WebClient client = new WebClient())
             {
+                if (useTLS)
+                {
+                    ServicePointManager.Expect100Continue = true;
+                    ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                }
+                
                 string result;
                 try
                 {
