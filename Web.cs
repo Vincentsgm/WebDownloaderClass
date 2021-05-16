@@ -17,10 +17,9 @@ namespace YourPlugin.Web
                     ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
                 }
                 
-                string result;
                 try
                 {
-                    result = client.DownloadString(url);
+                    string result = client.DownloadString(url);
                     success = true;
                     return result;
                 }
